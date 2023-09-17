@@ -13,6 +13,24 @@ public class DOTween01 : MonoBehaviour
 
     public TextMeshProUGUI a_text;
 
+    Tweener abc;
+
+    private void Start()
+    {
+        abc = a_text.DOText("abcdefg", 0.3f)
+            .OnPlay(() => Debug.Log("Played"))
+            .OnStart(() => Debug.Log("Started"))
+            .SetAutoKill(false);
+
+        StartCoroutine(Cor());
+    }
+
+    IEnumerator Cor()
+    {
+        yield return new WaitForSeconds(1f);
+        abc.Play();
+    }
+
     [Button]
     public void TOTween()
     {

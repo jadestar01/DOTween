@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MouseoverEvent : MonoBehaviour
 {
+    public bool isSelected = false;
+
     public int index;
 
     TextMeshProUGUI text;
@@ -20,16 +22,36 @@ public class MouseoverEvent : MonoBehaviour
 
     public void OnPointerEnter()
     {
+        if (isSelected)
+            return;
+
         text.color = targetColor;
     }
 
     public void OnPointerExit()
     {
+        if (isSelected)
+            return;
         text.color = defaultColor;
     }
 
     public void OnClick()
     {
+        if (isSelected)
+            return;
+
         Manager.Instance.SetPanelIndex(index);
+    }
+
+    public void Select()
+    {
+        isSelected = true;
+        text.color = targetColor;
+    }
+
+    public void UnSelect()
+    {
+        isSelected = false;
+        text.color = defaultColor;
     }
 }

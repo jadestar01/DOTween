@@ -31,6 +31,7 @@ public class Manager : MonoBehaviour
         }
     }
 
+    public List<GameObject> buttons = new List<GameObject>();
     public List<GameObject> tweenPanels = new List<GameObject>();
     public int index = 0;
 
@@ -56,6 +57,14 @@ public class Manager : MonoBehaviour
     {
         if (tweenPanels.Count <= index)
             return;
+
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            if (index == i)
+                buttons[i].transform.GetChild(0).GetComponent<MouseoverEvent>().Select();
+            else
+                buttons[i].transform.GetChild(0).GetComponent<MouseoverEvent>().UnSelect();
+        }
 
         for (int i = 0; i < tweenPanels.Count; i++)
         {
