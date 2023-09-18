@@ -7,35 +7,24 @@ using TMPro;
 
 public class DOTween01 : MonoBehaviour
 {
-    public int a = 0;
-    public float b = 0;
-    public string c = "";
-
-    public TextMeshProUGUI a_text;
-
-    Tweener abc;
-
-    private void Start()
-    {
-        abc = a_text.DOText("abcdefg", 0.3f)
-            .OnPlay(() => Debug.Log("Played"))
-            .OnStart(() => Debug.Log("Started"))
-            .SetAutoKill(false);
-
-        StartCoroutine(Cor());
-    }
-
-    IEnumerator Cor()
-    {
-        yield return new WaitForSeconds(1f);
-        abc.Play();
-    }
+    public Transform a;
 
     [Button]
-    public void TOTween()
+    public void Jump()
     {
-        //DOTween.To(() => a_text.text, x => a_text.text = x, "abcdef", 2f);
-        DOTween.To(() => 0, x => a_text.text = x.ToString("F2"), 100f, 2f);
-        //DOTween.TO(() => 시작값, 변수 => 변경할식, 나중값, 시간);
+        Sequence seq2 = DOTween.Sequence()
+        .AppendCallback(() => Debug.Log("안녕티비 ㅋㅋ"))
+        .AppendInterval(1f)
+        .AppendCallback(() => Debug.Log("우헤헤!!"));
+
+        Sequence seq = DOTween.Sequence()
+
+        .Append(a.DOMoveX(0, 3))
+        .Join(a.DOMoveY(4, 4).SetEase(Ease.OutQuad))
+
+        .Append(a.DOMoveX(8, 3))
+        .Join(a.DOMoveY(-4, 2).SetEase(Ease.InQuad))
+
+        .Play();
     }
 }
